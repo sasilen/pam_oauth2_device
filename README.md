@@ -10,7 +10,7 @@ The following instructions have been tested on Ubuntu 20.04.
 Install build dependencies.
 
 ```bash
-sudo apt install libldap2-dev libpam0g-dev
+sudo apt install libldap2-dev libpam0g-dev libcurl4-openssl-dev
 ```
 
 Clone the repository, build and install the module.
