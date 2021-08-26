@@ -9,11 +9,18 @@ By default docker builds RPM from the 'https://github.com/ICS-MU/pam_oauth2_devi
 
 
 ```bash
+# Select distribution to compile package for
+
+cd CentOS_8
+
 # ICS-MU master
 docker build -t pamoauth2device-rpm-build .
 
 # Other Repo and other tag
 docker build -t pamoauth2device-rpm-build --build-arg REPOSITORY="https://github.com/jsurkont/pam_oauth2_device" --build-arg RELEASE="0.1.1" .
+
+# Just an other repository
+docker build -t pamoauth2device-rpm-build --build-arg REPOSITORY="https://github.com/jsurkont/pam_oauth2_device" .
 
 # Optain RPMs from the package
 docker run --rm -v ${PWD}:/data pamoauth2device-rpm-build cp -r 'rpmbuild/RPMS /data'
