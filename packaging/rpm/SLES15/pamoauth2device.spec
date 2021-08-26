@@ -12,8 +12,6 @@
 %{!?_location: %define _location %{_repository}/archive/v%{_version}.tar.gz}
 %endif
 
-#echo %{_location}
-
 Name:    pamoauth2device
 Version: %{_version}
 Release: 1%{?dist}
@@ -21,6 +19,7 @@ Summary: PAM module for OAuth 2.0 Device flow
 License: Apache-2.0
 URL:     https://github.com/ICS-MU/pam_oauth2_device
 Source0: %{_location}
+#Source0: https://github.com/jsurkont/pam_oauth2_device/archive/refs/tags/v0.1.1.tar.gz
 
 
 # List of build-time dependencies:
@@ -28,7 +27,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: libcurl-devel
-BuildRequires: openldap-devel
+BuildRequires: openldap2-devel
 BuildRequires: pam-devel
 
 
@@ -41,6 +40,7 @@ Requires: openldap-clients
 PAM module that allows authentication against external OpenID Connect
 identity provider using OAuth 2.0 Device Flow.
 
+%global debug_package %{nil}
 
 %prep
 %setup -q -n pam_oauth2_device-%{_version}

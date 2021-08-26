@@ -1,12 +1,9 @@
 FROM centos:7
 
-#ARG RELEASE="0.1.1"
 ARG RELEASE="master"
 ENV RELEASE=${RELEASE}
-#ENV REPOSITORY="https://github.com/ICS-MU/pam_oauth2_device"
-ENV REPOSITORY="https://github.com/jsurkont/pam_oauth2_device"
-
-RUN echo ${REPOSITORY}
+ARG REPOSITORY="https://github.com/ICS-MU/pam_oauth2_device"
+ENV REPOSITORY=${REPOSITORY}
 
 RUN yum install -y centos-release-scl scl-utils --nogpgcheck
 RUN yum update -y
@@ -31,12 +28,12 @@ WORKDIR /home/builder
 
 RUN mkdir -p rpmbuild/SOURCES \
  && cd rpmbuild/SOURCES \
- && if [ "${RELEASE}" = "master" ]; then \
+ && if [ "${RELEASE}" = "master" ] ; then \
       export SOURCE=${REPOSITORY}/archive/refs/heads/${RELEASE}.tar.gz; \
     else \
       export SOURCE=${REPOSITORY}/archive/v${RELEASE}.tar.gz; \
     fi \
- && curl -L -O $SOURCE; echo $SOURCE; 
+ && curl -L -O $SOURCE; echo "Used: $SOURCE"; 
 
 
 COPY --chown=builder:builder pamoauth2device.spec .

@@ -1,19 +1,20 @@
-FROM centos:8
+FROM opensuse/leap:15.0
 
 ARG RELEASE="master"
 ENV RELEASE=${RELEASE}
 ARG REPOSITORY="https://github.com/ICS-MU/pam_oauth2_device"
 ENV REPOSITORY=${REPOSITORY}
 
-RUN yum install -y \
+RUN zypper install -y \
     gcc \
     gcc-c++ \
     libcurl-devel \
+    curl \
     make \
-    openldap-devel \
+    openldap2-devel \
     pam-devel \
     rpm-build \
- && yum clean all
+ && zypper clean -a
 
 RUN groupadd builder \
  && useradd --create-home --gid builder builder
