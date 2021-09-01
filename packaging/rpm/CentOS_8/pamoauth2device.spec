@@ -1,5 +1,5 @@
 # pam_oauth2_device version
-%define _version %{version}
+%define _version %{rel}
 %define _repository %{repository}
 %define _source %{location}
 %define _lib /lib64
@@ -11,6 +11,7 @@
 %else
 %{!?_location: %define _location %{_repository}/archive/v%{_version}.tar.gz}
 %endif
+
 
 Name:    pamoauth2device
 Version: %{_version}

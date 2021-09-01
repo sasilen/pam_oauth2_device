@@ -1,4 +1,5 @@
-FROM opensuse/leap:15.0
+#FROM opensuse/leap:15.0
+FROM suse/sle15:latest
 
 ARG RELEASE="master"
 ENV RELEASE=${RELEASE}

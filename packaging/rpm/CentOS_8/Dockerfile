@@ -13,6 +13,7 @@ RUN yum install -y \
     openldap-devel \
     pam-devel \
     rpm-build \
+    git \
  && yum clean all
 
 RUN groupadd builder \
@@ -24,7 +25,8 @@ WORKDIR /home/builder
 
 RUN mkdir -p rpmbuild/SOURCES \
  && cd rpmbuild/SOURCES \
- && if [ "${RELEASE}" = "master" ]; then \
+ && git ls-remote --exit-code --heads ${REPOSITORY} ${RELEASE} \
+ && if [ $? = 0  ]; then \
       export SOURCE=${REPOSITORY}/archive/refs/heads/${RELEASE}.tar.gz; \
     else \
       export SOURCE=${REPOSITORY}/archive/v${RELEASE}.tar.gz; \
@@ -34,4 +36,4 @@ RUN mkdir -p rpmbuild/SOURCES \
 
 COPY --chown=builder:builder pamoauth2device.spec .
 
-RUN rpmbuild -ba --define "version ${RELEASE}" --define "repository ${REPOSITORY}" pamoauth2device.spec
+RUN rpmbuild -ba --define "rel ${RELEASE}" --define "repository ${REPOSITORY}" pamoauth2device.spec
